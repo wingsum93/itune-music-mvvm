@@ -37,6 +37,7 @@ class MainPage2Adapter( var context: Context): RecyclerView.Adapter<MainPage2Ada
         musicInfos.apply {
             clear()
             addAll(musicInfoList)
+            notifyDataSetChanged()
         }
     }
     fun setListener(listener: OnMusicSelectListener){
