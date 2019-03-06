@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Itunes_music_demo</string>
+    <string name="search_view_hint">Enter music/artist name</string>
+    <string name="loading">Loading...</string>
+    <string name="no_network">No network connection</string>
+    <string name="reconnect_network">Please reconnect network</string>
+    <string name="refresh">Refresh</string>
+</resources>
