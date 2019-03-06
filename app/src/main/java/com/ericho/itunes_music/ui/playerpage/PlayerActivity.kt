@@ -85,7 +85,7 @@ class PlayerActivity : AppCompatActivity(), PlayerContract.View{
             txtArtist!!.text = musicInfo!!.artist
 
             // init mediaplayer
-            presenter!!.setDataSource(musicInfo!!.url)
+            presenter!!.setDataSource(musicInfo!!.previewUrl)
         }
 
         imgbtn_playPause!!.setOnClickListener { view ->

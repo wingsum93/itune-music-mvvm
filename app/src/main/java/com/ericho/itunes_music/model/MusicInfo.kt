@@ -9,9 +9,14 @@ data class MusicInfo (
         @SerializedName("trackName")
         val music: String,
         @SerializedName("previewUrl")
-        val url: String,
+        val previewUrl: String,
         @SerializedName("artworkUrl100")
         val icon_large: String,
         @SerializedName("artworkUrl30")
         val icon: String): Serializable{
+
+        val artistDisplayString
+                get() = "Artist Name: $artist"
+        val musicDisplayString
+                get() = "Song Name: $music"
 }

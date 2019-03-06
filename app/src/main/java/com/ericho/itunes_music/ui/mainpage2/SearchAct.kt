@@ -2,7 +2,6 @@ package com.ericho.itunes_music.ui.mainpage2
 
 import android.os.Bundle
 import android.os.Handler
-import android.view.View
 import android.widget.RelativeLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
@@ -14,6 +13,8 @@ import com.ericho.itunes_music.R
 import com.ericho.itunes_music.databinding.ActivitySearchBinding
 import com.ericho.itunes_music.factory.MyViewModelFactory
 import com.ericho.itunes_music.model.MusicInfo
+import com.google.gson.Gson
+import com.roger.catloadinglibrary.CatLoadingView
 import timber.log.Timber
 
 /**
@@ -27,7 +28,11 @@ class SearchAct :AppCompatActivity(),SearchView.OnQueryTextListener {
 
     lateinit var no_network_layout:RelativeLayout
 
+    val catView:CatLoadingView by lazy { getCatLoadingView() }
+
     val handler = Handler()
+
+    val gson = Gson()
 
     private lateinit var adapter:MainPage2Adapter
 
@@ -36,31 +41,44 @@ class SearchAct :AppCompatActivity(),SearchView.OnQueryTextListener {
         val binding = DataBindingUtil.setContentView<ActivitySearchBinding>(this,R.layout.activity_search)
         viewModel = obtainViewModel()
         binding.viewModel = viewModel
+        initView(binding)
+
+
+        viewModel.getMusicList("abc")
+
+
+
+
+    }
+
+    private fun initView(binding: ActivitySearchBinding?) {
+        if (binding == null) return
+
         adapter = MainPage2Adapter(this)
         binding.sv.setOnQueryTextListener(this)
         no_network_layout = findViewById(R.id.rl_no_network)
-
-        viewModel!!.errorMessageEvent.observe(this, Observer {
-            no_network_layout.visibility = View.VISIBLE
-            val runnerable = object :Runnable{
-                override fun run() {
-                    no_network_layout.visibility = View.GONE
-                }
-            }
-            handler.postDelayed(runnerable,2000)
-        })
-
-//        viewModel!!.loading.
         binding.rvMusic.layoutManager = LinearLayoutManager(this)
         binding.rvMusic.adapter = adapter
-
-        viewModel.getMusicList("abc")
 
         //set listener
         adapter.setListener(object :MainPage2Adapter.OnMusicSelectListener{
             override fun onMusicSelect(musicInfo: MusicInfo) {
-
+                Timber.d(gson.toJson(musicInfo))
+                Timber.d(musicInfo.artistDisplayString)
+                viewModel.clickToPlayMusic(musicInfo.previewUrl)
             }
+        })
+
+        viewModel.loading.observe(this, Observer {
+            if(it){
+                catView.show(supportFragmentManager,"")
+            }else{
+                catView.dismiss()
+            }
+        })
+
+        viewModel.playMusicRawSource.observe(this, Observer {
+
         })
     }
 
@@ -78,4 +96,8 @@ class SearchAct :AppCompatActivity(),SearchView.OnQueryTextListener {
 
     fun obtainViewModel():HomePageViewModel = ViewModelProviders.of(this,MyViewModelFactory.getInstance(application))
         .get(HomePageViewModel::class.java)
+
+    private fun getCatLoadingView():CatLoadingView{
+        return CatLoadingView().apply { isCancelable = false }
+    }
 }

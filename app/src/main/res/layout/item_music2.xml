@@ -1,37 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <layout>
     <data>
         <variable name="item" type="com.ericho.itunes_music.model.MusicInfo"/>
     </data>
-    <RelativeLayout
+    <LinearLayout
             xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:app="http://schemas.android.com/apk/res-auto"
             android:id="@+id/rl_main"
             android:layout_width="match_parent"
-            android:layout_height="120dp"
+            android:orientation="horizontal"
+            android:layout_height="80dp"
             android:paddingTop="4dp"
-            android:paddingBottom="8dp"
+            android:paddingBottom="4dp"
             android:paddingLeft="8dp"
             android:paddingRight="8dp"
-            android:background="#FFFFFF">
-
-        <RelativeLayout
-                android:id="@+id/rl_main_content"
-                android:layout_width="match_parent"
-                android:layout_height="100dp">
+            android:background="@color/white">
 
             <com.github.siyamed.shapeimageview.CircularImageView
                     android:layout_width="60dp"
                     android:layout_height="60dp"
-                    app:siBorderWidth="1dp"
                     android:id="@+id/img_icon"
-                    android:layout_centerVertical="true"
-                    app:siBorderColor="@color/iconShadow"/>
+                    app:siBorderWidth="1dp"
+                    app:siBorderColor="@color/iconShadow"
+                    app:imageUrl="@{item.icon_large}" />
 
             <LinearLayout
-                    android:layout_centerInParent="true"
-                    android:layout_toRightOf="@+id/img_icon"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="16dp"
@@ -42,7 +35,7 @@
                         android:id="@+id/txt_song"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@{ `1` + item.artist }"
+                        android:text="@{item.musicDisplayString}"
                         android:textColor="#212121"
                         android:textSize="14sp" />
 
@@ -51,11 +44,11 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
-                        android:text= "Artist Name: "
+                        android:text="@{item.artistDisplayString}"
                         android:textColor="#727272"
                         android:textSize="14sp" />
 
             </LinearLayout>
-        </RelativeLayout>
-    </RelativeLayout>
+
+    </LinearLayout>
 </layout>

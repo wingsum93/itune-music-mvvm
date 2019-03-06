@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools">
     <data>
+        <import type="android.view.View" />
         <variable
                 name="viewModel" type="com.ericho.itunes_music.ui.mainpage2.HomePageViewModel" />
 
@@ -20,21 +21,28 @@
                 android:layout_below="@id/sv"
                 android:id="@+id/rv_music"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_margin="12dp"
                 android:scrollbars="none"
                 app:musicData="@{viewModel.musicList}" />
 
         <RelativeLayout
-                android:visibility="gone"
+                android:visibility="@{viewModel.showErrorMessage ? View.VISIBLE : View.GONE}"
+                tools:visibility="visible"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="20dp"
+                android:layout_centerHorizontal="true"
+                android:layout_alignParentBottom="true"
                 android:id="@+id/rl_no_network">
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
-                    android:text="@{viewModel.errorMessageEvent}"/>
+                    android:text="@{viewModel.errorMessageEvent}"
+                    android:textSize="20sp"
+                    android:textColor="@color/red"
+                    tools:text="Testing 1"/>
         </RelativeLayout>
     </RelativeLayout>
 </layout>

@@ -1,7 +1,9 @@
 package com.ericho.itunes_music.utils
 
+import android.widget.ImageView
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.ericho.itunes_music.model.MusicInfo
 import com.ericho.itunes_music.ui.mainpage2.MainPage2Adapter
 
@@ -18,4 +20,9 @@ import com.ericho.itunes_music.ui.mainpage2.MainPage2Adapter
 @BindingAdapter("app:musicData",requireAll = true)
 fun RecyclerView.bindMusicData(items:ArrayList<MusicInfo>){
     (adapter as? MainPage2Adapter)?.setData(items)
+}
+
+@BindingAdapter("app:imageUrl")
+fun ImageView.bindImageUrl(url:String){
+    Glide.with(this.context).load(url).into(this)
 }
