@@ -1,34 +1,96 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools">
+<layout xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools"
+        xmlns:android="http://schemas.android.com/apk/res/android">
     <data>
         <import type="android.view.View" />
+        <import type="java.lang.String"/>
         <variable
                 name="viewModel" type="com.ericho.itunes_music.ui.mainpage2.HomePageViewModel" />
 
     </data>
-    <RelativeLayout
-            xmlns:android="http://schemas.android.com/apk/res/android"
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
             android:layout_width="match_parent"
-            android:background="#FFF"
             android:layout_height="match_parent">
-
-        <androidx.appcompat.widget.SearchView
+        <LinearLayout
+                android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:id="@+id/sv"/>
+                android:background="#FFF"
+                android:layout_height="match_parent">
 
-        <androidx.recyclerview.widget.RecyclerView
-                android:layout_below="@id/sv"
-                android:id="@+id/rv_music"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="12dp"
-                android:scrollbars="none"
-                app:musicData="@{viewModel.musicList}" />
+            <androidx.appcompat.widget.SearchView
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:id="@+id/sv"/>
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical" android:id="@+id/play_group" android:visibility="visible">
+                <TextView
+                        android:id="@+id/txtSound"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:textColor="@android:color/black"
+                        android:text="@{viewModel.playSongName}"
+                        tools:text="Song Name"
+                        android:textAlignment="center"/>
+                <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal">
 
+                    <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textAppearance="?android:attr/textAppearanceSmall"
+                            android:text="@{ viewModel.getTimeDisplayString(viewModel.seekbarProgress)}"
+                            android:id="@+id/txtSeekBarHint"
+                            android:textColor="@android:color/black"/>
+
+                    <SeekBar
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/sb"
+                            android:layout_weight="0.8"
+                            android:max="30"
+                            android:progress="@{viewModel.seekbarProgress}"
+                            android:onProgressChanged="@{viewModel.onProgressChanged}"
+                            android:onStartTrackingTouch="@{viewModel.onStartTrackingTouch}"
+                            android:onStopTrackingTouch="@{viewModel.onStopTrackingTouch}"
+
+                            tools:progress="30"/>
+
+                    <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textAppearance="?android:attr/textAppearanceSmall"
+                            android:text="0:30"
+                            android:textColor="@android:color/black"/>
+
+                </LinearLayout>
+                <androidx.appcompat.widget.AppCompatImageView
+                        android:layout_width="40dp" android:layout_height="40dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/ic_play_circle_outline_black"/>
+                <ImageView android:layout_width="64dp"
+                           android:layout_height="64dp"
+                           android:src="@drawable/ic_close_black_24dp"/>
+            </LinearLayout>
+            <androidx.recyclerview.widget.RecyclerView
+                    android:layout_below="@id/sv"
+                    android:id="@+id/rv_music"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:scrollbars="none"
+                    app:musicData="@{viewModel.musicList}"/>
+
+
+        </LinearLayout>
         <RelativeLayout
                 android:visibility="@{viewModel.showErrorMessage ? View.VISIBLE : View.GONE}"
-                tools:visibility="visible"
+                tools:visibility="invisible"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="20dp"
@@ -44,5 +106,6 @@
                     android:textColor="@color/red"
                     tools:text="Testing 1"/>
         </RelativeLayout>
-    </RelativeLayout>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
 </layout>

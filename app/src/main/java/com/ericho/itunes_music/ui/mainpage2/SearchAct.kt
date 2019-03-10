@@ -1,7 +1,6 @@
 package com.ericho.itunes_music.ui.mainpage2
 
 import android.os.Bundle
-import android.os.Handler
 import android.widget.RelativeLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
@@ -30,7 +29,6 @@ class SearchAct :AppCompatActivity(),SearchView.OnQueryTextListener {
 
     val catView:CatLoadingView by lazy { getCatLoadingView() }
 
-    val handler = Handler()
 
     val gson = Gson()
 
@@ -65,7 +63,7 @@ class SearchAct :AppCompatActivity(),SearchView.OnQueryTextListener {
             override fun onMusicSelect(musicInfo: MusicInfo) {
                 Timber.d(gson.toJson(musicInfo))
                 Timber.d(musicInfo.artistDisplayString)
-                viewModel.clickToPlayMusic(musicInfo.previewUrl)
+                viewModel.clickToPlayMusic(musicInfo)
             }
         })
 
@@ -99,5 +97,10 @@ class SearchAct :AppCompatActivity(),SearchView.OnQueryTextListener {
 
     private fun getCatLoadingView():CatLoadingView{
         return CatLoadingView().apply { isCancelable = false }
+    }
+
+    override fun onDestroy() {
+        viewModel.release()
+        super.onDestroy()
     }
 }
