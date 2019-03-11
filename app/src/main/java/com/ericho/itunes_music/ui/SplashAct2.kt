@@ -3,7 +3,6 @@ package com.ericho.itunes_music.ui
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.ericho.itunes_music.R
-import me.itangqi.waveloadingview.WaveLoadingView
 
 /**
  * Created by steve_000 on 7/3/2019.
@@ -12,14 +11,11 @@ import me.itangqi.waveloadingview.WaveLoadingView
  */
 class SplashAct2 :AppCompatActivity() {
 
-    lateinit var loadingView:WaveLoadingView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash2)
 
-        loadingView =  findViewById(R.id.waveLoadingView)
 
-        loadingView.startAnimation()
     }
 }
