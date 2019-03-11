@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:tools="http://schemas.android.com/tools">
     <data>
         <variable name="item" type="com.ericho.itunes_music.model.MusicInfo"/>
     </data>
@@ -9,7 +9,7 @@
         android:id="@+id/rl_main"
         android:layout_width="match_parent"
         android:orientation="horizontal"
-        android:layout_height="80dp"
+        android:layout_height="wrap_content"
         android:paddingTop="4dp"
         android:paddingBottom="4dp"
         android:paddingLeft="8dp"
@@ -37,6 +37,7 @@
                 android:layout_height="wrap_content"
                 android:text="@{item.musicDisplayString}"
                 android:textColor="#212121"
+                tools:text="Song Name: Written In the Starsasdasdasdasddasdd"
                 android:textSize="14sp"/>
 
             <TextView
@@ -45,6 +46,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:text="@{item.artistDisplayString}"
+                tools:text="Artist Name: Written In the Starsasdasdasdasddasdd"
                 android:textColor="#727272"
                 android:textSize="14sp"/>
 
