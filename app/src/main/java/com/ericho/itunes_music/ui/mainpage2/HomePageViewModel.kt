@@ -40,9 +40,11 @@ class HomePageViewModel(
     // indicating now is playing music even the music is suspend for dragging
     val playing: ObservableBoolean = ObservableBoolean(false)
     val playSongName: ObservableField<String> = ObservableField()
+    val playArtistName: ObservableField<String> = ObservableField()
     val seekbarProgress: ObservableInt = ObservableInt(0)
     val isDragging = ObservableBoolean(false)
     val showPlayerConsole = ObservableBoolean(false)
+    val musicResourceLoading = ObservableBoolean(false)
 
 
     //other
@@ -85,6 +87,7 @@ class HomePageViewModel(
             return
         }
         playSongName.set(musicInfo.musicDisplayString)
+        playArtistName.set(musicInfo.artistDisplayString)
         _playMusic(musicInfo.previewUrl)
     }
 
@@ -92,8 +95,10 @@ class HomePageViewModel(
         playMusicRawSource.value = musicUrl
         showPlayerConsole.set(true)
         playing.set(false)
-
-        musicPlayer.loadAndPlay(musicUrl, Runnable { playing.set(true) })
+        musicResourceLoading.set(true)
+        musicPlayer.loadAndPlay(musicUrl,
+            Runnable { playing.set(true) },
+            Runnable { musicResourceLoading.set(false) })
         musicPlayer.registerUpdate(object : MusicPlayer.MusicCallback {
             override fun onPlayingProgress(currentPosition: Int, max: Int) {
                 seekbarProgress.set(currentPosition / 1000)

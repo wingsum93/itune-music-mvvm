@@ -26,18 +26,30 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical" android:id="@+id/play_group"
+                android:orientation="vertical"
+                android:id="@+id/play_group"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
                 android:visibility="@{viewModel.showPlayerConsole ? View.VISIBLE : View.GONE}"
                 tools:visibility="visible">
                 <TextView
-                    android:id="@+id/txtSound"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:textColor="@android:color/black"
                     android:text="@{viewModel.playSongName}"
+                    android:gravity="center"
                     tools:text="Song Name"
+                    android:textAlignment="center"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textColor="@android:color/black"
+                    android:text="@{viewModel.playArtistName}"
+                    tools:text="Artist Name"
                     android:textAlignment="center"/>
                 <LinearLayout
                     android:orientation="horizontal"
@@ -88,8 +100,20 @@
                         android:layout_centerVertical="true"
                         android:layout_alignParentRight="true"
                         android:src="@drawable/ic_close_black_24dp"
-                        android:onClick="@{()->viewModel.closeMusicPlayerAndView()}"
-                    />
+                        android:onClick="@{()->viewModel.closeMusicPlayerAndView()}"/>
+                    <com.github.ybq.android.spinkit.SpinKitView
+                        xmlns:app="http://schemas.android.com/apk/res-auto"
+                        android:id="@+id/spin_kit"
+                        style="@style/SpinKitView.Wave"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_alignParentLeft="true"
+                        android:layout_centerVertical="true"
+                        android:layout_margin="10dp"
+                        android:visibility="@{viewModel.musicResourceLoading ? View.VISIBLE : View.GONE}"
+                        tools:visibility="visible"
+                        app:SpinKit_Color="@color/blue_A400"/>
+
                 </RelativeLayout>
 
             </LinearLayout>

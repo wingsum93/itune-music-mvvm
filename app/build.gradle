@@ -74,7 +74,7 @@ dependencies {
     //loading
     implementation 'me.itangqi.waveloadingview:library:0.3.5'
     implementation 'com.roger.catloadinglibrary:catloadinglibrary:1.0.4'
-
+    implementation 'com.github.ybq:Android-SpinKit:1.2.0'
     
     implementation 'com.github.siyamed:android-shape-imageview:0.9.+@aar'
     implementation 'com.facebook.stetho:stetho:1.5.0'
