@@ -28,7 +28,7 @@ class MusicPlayer : MediaPlayer(), CoroutineScope {
         setAudioStreamType(AudioManager.STREAM_MUSIC)
     }
 
-    fun loadAndPlay(url: String) {
+    fun loadAndPlay(url: String, afterStartRunnable: Runnable? = null, loadCompleteRunnable: Runnable? = null) {
 
         launch(Dispatchers.Main) {
             dispatchJob?.cancel()
@@ -42,7 +42,9 @@ class MusicPlayer : MediaPlayer(), CoroutineScope {
                 prepare()
                 durationCopy = duration
             }
+            loadCompleteRunnable?.run()
             start()
+            afterStartRunnable?.run()
             initializeUpdate()
         }
 

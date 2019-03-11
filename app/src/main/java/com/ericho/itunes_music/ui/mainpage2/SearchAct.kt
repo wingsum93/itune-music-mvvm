@@ -1,6 +1,8 @@
 package com.ericho.itunes_music.ui.mainpage2
 
+import android.app.SearchManager
 import android.os.Bundle
+import android.view.inputmethod.InputMethodManager
 import android.widget.RelativeLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
@@ -26,6 +28,7 @@ class SearchAct :AppCompatActivity(),SearchView.OnQueryTextListener {
     lateinit var viewModel : HomePageViewModel
 
     lateinit var no_network_layout:RelativeLayout
+    lateinit var sv: SearchView
 
     val catView:CatLoadingView by lazy { getCatLoadingView() }
 
@@ -53,7 +56,11 @@ class SearchAct :AppCompatActivity(),SearchView.OnQueryTextListener {
         if (binding == null) return
 
         adapter = MainPage2Adapter(this)
+        sv = binding.sv
         binding.sv.setOnQueryTextListener(this)
+        val searchManager = getSystemService(SearchManager::class.java)
+        binding.sv.setSearchableInfo(searchManager.getSearchableInfo(componentName))
+
         no_network_layout = findViewById(R.id.rl_no_network)
         binding.rvMusic.layoutManager = LinearLayoutManager(this)
         binding.rvMusic.adapter = adapter
@@ -84,6 +91,10 @@ class SearchAct :AppCompatActivity(),SearchView.OnQueryTextListener {
         Timber.d("click search $query")
         query?.let {
             viewModel!!.getMusicList(it)
+
+            val im = getSystemService(InputMethodManager::class.java)
+            im.hideSoftInputFromWindow(this.currentFocus.windowToken, 0)
+            sv.clearFocus()
         }
         return true
     }
@@ -97,10 +108,5 @@ class SearchAct :AppCompatActivity(),SearchView.OnQueryTextListener {
 
     private fun getCatLoadingView():CatLoadingView{
         return CatLoadingView().apply { isCancelable = false }
-    }
-
-    override fun onDestroy() {
-        viewModel.release()
-        super.onDestroy()
     }
 }

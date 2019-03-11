@@ -1,8 +1,6 @@
 package com.ericho.itunes_music.ui.mainpage2
 
 import android.app.Application
-import android.os.Handler
-import android.os.HandlerThread
 import android.widget.SeekBar
 import androidx.databinding.ObservableArrayList
 import androidx.databinding.ObservableBoolean
@@ -16,6 +14,7 @@ import com.ericho.itunes_music.model.MusicInfo
 import com.ericho.itunes_music.mp.MusicPlayer
 import com.ericho.itunes_music.utils.toMusicDisplayFormat
 import com.google.gson.Gson
+import kotlinx.coroutines.*
 import timber.log.Timber
 
 /**
@@ -26,7 +25,7 @@ class HomePageViewModel(
     private val musicRepository: MusicRepository
 ) : AndroidViewModel(c) {
 
-
+    val pageScope: CoroutineScope = CoroutineScope(Dispatchers.Main) + SupervisorJob()
     var musicList: ObservableArrayList<MusicInfo> = ObservableArrayList()
     val empty = ObservableBoolean(false)
     val loading = MutableLiveData<Boolean>()
@@ -39,20 +38,20 @@ class HomePageViewModel(
     //use to indicate playing which music
     val playMusicRawSource: MutableLiveData<String> = MutableLiveData() //
     // indicating now is playing music even the music is suspend for dragging
-    val playing: MutableLiveData<Boolean> = MutableLiveData()
-    val timeline: MutableLiveData<Float> = MutableLiveData()
+    val playing: ObservableBoolean = ObservableBoolean(false)
     val playSongName: ObservableField<String> = ObservableField()
+    val playArtistName: ObservableField<String> = ObservableField()
     val seekbarProgress: ObservableInt = ObservableInt(0)
     val isDragging = ObservableBoolean(false)
+    val showPlayerConsole = ObservableBoolean(false)
+    val musicResourceLoading = ObservableBoolean(false)
+
 
     //other
     private val gson = Gson()
     //    val mediaPlayer: MediaPlayer by getMediaPlayer()
     val musicPlayer: MusicPlayer by lazy { MusicPlayer() }
 
-
-    private val handlerThread: HandlerThread = HandlerThread("music")
-    private val workHandler: Handler by lazy { Handler(handlerThread.looper) }
 
     fun getMusicList(searchData: String) {
 
@@ -65,8 +64,6 @@ class HomePageViewModel(
                     clear()
                     addAll(musics)
                 }
-                Timber.w(gson.toJson(musics))
-
             }
 
             override fun onLoadError(e: Throwable) {
@@ -76,7 +73,10 @@ class HomePageViewModel(
                 }
                 errorMessageEvent.set(e.message)
                 showErrorMessage.set(true)
-                workHandler.postDelayed(Runnable { showErrorMessage.set(false) }, 5000)
+                pageScope.launch {
+                    delay(5000)
+                    showErrorMessage.set(false)
+                }
                 Timber.e("API return ${errorMessageEvent.get()}")
             }
         })
@@ -87,21 +87,47 @@ class HomePageViewModel(
             return
         }
         playSongName.set(musicInfo.musicDisplayString)
+        playArtistName.set(musicInfo.artistDisplayString)
         _playMusic(musicInfo.previewUrl)
     }
 
     private fun _playMusic(musicUrl: String) {
         playMusicRawSource.value = musicUrl
-        timeline.value = 0.toFloat()
-        playing.value = true
-
-        musicPlayer.loadAndPlay(musicUrl)
+        showPlayerConsole.set(true)
+        playing.set(false)
+        musicResourceLoading.set(true)
+        musicPlayer.loadAndPlay(musicUrl,
+            Runnable { playing.set(true) },
+            Runnable { musicResourceLoading.set(false) })
         musicPlayer.registerUpdate(object : MusicPlayer.MusicCallback {
             override fun onPlayingProgress(currentPosition: Int, max: Int) {
-                timeline.value = currentPosition / 1000f
                 seekbarProgress.set(currentPosition / 1000)
             }
         })
+        musicPlayer.setOnCompletionListener {
+            playing.set(false)
+        }
+    }
+
+    fun clickButton1() {
+        Timber.w("Click bbbt111")
+        if (playing.get()) {
+            musicPlayer.pause()
+            playing.set(false)
+        } else {
+            playing.set(true)
+            musicPlayer.start()
+        }
+    }
+
+    fun closeMusicPlayerAndView() {
+        Timber.d("closeMusicPlayerAndView 1")
+        musicPlayer.apply {
+            stop()
+            playMusicRawSource.value = ""
+            seekbarProgress.set(0)
+            showPlayerConsole.set(false)
+        }
     }
 
     fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
@@ -123,10 +149,9 @@ class HomePageViewModel(
 
     fun onStopTrackingTouch(seekBar: SeekBar) {
         isDragging.set(false)
-        if (playing.value == true) {
+        if (playing.get()) {
             musicPlayer.start()
         }
-
     }
 
     fun getTimeDisplayString(time: Int): String {
@@ -134,11 +159,9 @@ class HomePageViewModel(
     }
 
     override fun onCleared() {
-        super.onCleared()
+        pageScope.coroutineContext.cancelChildren()
         musicPlayer.release()
+        super.onCleared()
     }
 
-    fun release() {
-//        mediaPlayer.release()
-    }
 }
