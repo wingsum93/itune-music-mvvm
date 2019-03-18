@@ -158,6 +158,13 @@ class HomePageViewModel(
         return time.toMusicDisplayFormat()
     }
 
+    fun onStop() {
+
+    }
+
+    fun onDestroy() {
+        closeMusicPlayerAndView()
+    }
     override fun onCleared() {
         pageScope.coroutineContext.cancelChildren()
         musicPlayer.release()

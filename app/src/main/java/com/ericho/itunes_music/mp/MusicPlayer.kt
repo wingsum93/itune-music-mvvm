@@ -80,10 +80,15 @@ class MusicPlayer : MediaPlayer(), CoroutineScope {
         fun onPlayingProgress(currentPosition: Int, max: Int)
     }
 
+    override fun stop() {
+        dispatchJob?.cancel()
+        super.stop()
+    }
     override fun pause() {
 //        this.job.cancelChildren()
         super.pause()
     }
+
 
     override fun start() {
         super.start()

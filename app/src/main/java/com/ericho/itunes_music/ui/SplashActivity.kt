@@ -17,7 +17,7 @@ class SplashActivity : AppCompatActivity() {
 
     private fun initView() {
         startActivity(Intent(this, SearchAct::class.java))
-
+        finish()
     }
 
 

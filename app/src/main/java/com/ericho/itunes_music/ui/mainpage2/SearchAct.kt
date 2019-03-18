@@ -42,6 +42,7 @@ class SearchAct :AppCompatActivity(),SearchView.OnQueryTextListener {
         val binding = DataBindingUtil.setContentView<ActivitySearchBinding>(this,R.layout.activity_search)
         viewModel = obtainViewModel()
         binding.viewModel = viewModel
+        binding.lifecycleOwner = this
         initView(binding)
 
 
@@ -108,5 +109,15 @@ class SearchAct :AppCompatActivity(),SearchView.OnQueryTextListener {
 
     private fun getCatLoadingView():CatLoadingView{
         return CatLoadingView().apply { isCancelable = false }
+    }
+
+    override fun onStop() {
+        viewModel.onStop()
+        super.onStop()
+    }
+
+    override fun onDestroy() {
+        viewModel.onDestroy()
+        super.onDestroy()
     }
 }
