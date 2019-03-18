@@ -9,8 +9,8 @@ android {
         applicationId "com.ericho.itunes_music"
         minSdkVersion 23
         targetSdkVersion 28
-        versionCode 2019311
-        versionName "1.1"
+        versionCode 2019318
+        versionName "1.1a"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     signingConfigs{
