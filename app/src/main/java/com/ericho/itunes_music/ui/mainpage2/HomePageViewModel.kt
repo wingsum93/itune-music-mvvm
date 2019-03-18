@@ -3,15 +3,14 @@ package com.ericho.itunes_music.ui.mainpage2
 import android.app.Application
 import android.widget.SeekBar
 import androidx.databinding.ObservableArrayList
-import androidx.databinding.ObservableBoolean
-import androidx.databinding.ObservableField
-import androidx.databinding.ObservableInt
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import com.ericho.itunes_music.data.datasource.MusicDataSource
 import com.ericho.itunes_music.data.repository.MusicRepository
 import com.ericho.itunes_music.model.MusicInfo
 import com.ericho.itunes_music.mp.MusicPlayer
+import com.ericho.itunes_music.utils.get
+import com.ericho.itunes_music.utils.set
 import com.ericho.itunes_music.utils.toMusicDisplayFormat
 import com.google.gson.Gson
 import kotlinx.coroutines.*
@@ -27,24 +26,23 @@ class HomePageViewModel(
 
     val pageScope: CoroutineScope = CoroutineScope(Dispatchers.Main) + SupervisorJob()
     var musicList: ObservableArrayList<MusicInfo> = ObservableArrayList()
-    val empty = ObservableBoolean(false)
     val loading = MutableLiveData<Boolean>()
 
     //for error message
-    val errorMessageEvent: ObservableField<String> = ObservableField()
-    val showErrorMessage: ObservableBoolean = ObservableBoolean(false)
+    val errorMessageEvent: MutableLiveData<String> = MutableLiveData()
+    val showErrorMessage: MutableLiveData<Boolean> = MutableLiveData()
 
 
     //use to indicate playing which music
     val playMusicRawSource: MutableLiveData<String> = MutableLiveData() //
     // indicating now is playing music even the music is suspend for dragging
-    val playing: ObservableBoolean = ObservableBoolean(false)
-    val playSongName: ObservableField<String> = ObservableField()
-    val playArtistName: ObservableField<String> = ObservableField()
-    val seekbarProgress: ObservableInt = ObservableInt(0)
-    val isDragging = ObservableBoolean(false)
-    val showPlayerConsole = ObservableBoolean(false)
-    val musicResourceLoading = ObservableBoolean(false)
+    val playing: MutableLiveData<Boolean> = MutableLiveData()
+    val playSongName: MutableLiveData<String> = MutableLiveData()
+    val playArtistName: MutableLiveData<String> = MutableLiveData()
+    val seekbarProgress: MutableLiveData<Int> = MutableLiveData()
+    val isDragging: MutableLiveData<Boolean> = MutableLiveData()
+    val showPlayerConsole: MutableLiveData<Boolean> = MutableLiveData()
+    val musicResourceLoading: MutableLiveData<Boolean> = MutableLiveData()
 
 
     //other
@@ -53,6 +51,14 @@ class HomePageViewModel(
     val musicPlayer: MusicPlayer by lazy { MusicPlayer() }
 
 
+    init {
+        seekbarProgress.set(0)
+        showPlayerConsole.set(false)
+        musicResourceLoading.set(false)
+        isDragging.set(false)
+        playing.set(false)
+        showErrorMessage.set(false)
+    }
     fun getMusicList(searchData: String) {
 
         loading.postValue(true)
