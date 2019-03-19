@@ -23,100 +23,108 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/sv"/>
-            <LinearLayout
+
+            <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:id="@+id/play_group"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp"
-                android:visibility="@{viewModel.showPlayerConsole ? View.VISIBLE : View.GONE}"
-                tools:visibility="visible">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textColor="@android:color/black"
-                    android:text="@{viewModel.playSongName}"
-                    android:gravity="center"
-                    tools:text="Song Name"
-                    android:textAlignment="center"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:textColor="@android:color/black"
-                    android:text="@{viewModel.playArtistName}"
-                    tools:text="Artist Name"
-                    android:textAlignment="center"/>
+                app:cardBackgroundColor="@color/grey"
+                android:padding="5dp"
+                app:cardCornerRadius="20dp">
                 <LinearLayout
-                    android:orientation="horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal">
-
+                    android:orientation="vertical"
+                    android:id="@+id/play_group"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:visibility="@{viewModel.showPlayerConsole ? View.VISIBLE : View.GONE}"
+                    tools:visibility="visible">
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceSmall"
-                        android:text="@{ viewModel.getTimeDisplayString(viewModel.seekbarProgress)}"
-                        android:id="@+id/txtSeekBarHint"
-                        android:textColor="@android:color/black"/>
-
-                    <SeekBar
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/sb"
-                        android:layout_weight="0.8"
-                        android:max="30"
-                        android:progress="@{viewModel.seekbarProgress}"
-                        android:onProgressChanged="@{viewModel.onProgressChanged}"
-                        android:onStartTrackingTouch="@{viewModel.onStartTrackingTouch}"
-                        android:onStopTrackingTouch="@{viewModel.onStopTrackingTouch}"
-
-                        tools:progress="30"/>
-
+                        android:layout_gravity="center_horizontal"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:textColor="@android:color/black"
+                        android:text="@{viewModel.playSongName}"
+                        android:gravity="center"
+                        tools:text="Song Name"
+                        android:textAlignment="center"/>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
                         android:textAppearance="?android:attr/textAppearanceSmall"
-                        android:text="0:30"
-                        android:textColor="@android:color/black"/>
+                        android:textColor="@android:color/black"
+                        android:text="@{viewModel.playArtistName}"
+                        tools:text="Artist Name"
+                        android:textAlignment="center"/>
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textAppearance="?android:attr/textAppearanceSmall"
+                            android:text="@{ viewModel.getTimeDisplayString(viewModel.seekbarProgress)}"
+                            android:id="@+id/txtSeekBarHint"
+                            android:textColor="@android:color/black"/>
+
+                        <SeekBar
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/sb"
+                            android:layout_weight="0.8"
+                            android:max="30"
+                            android:progress="@{viewModel.seekbarProgress}"
+                            android:onProgressChanged="@{viewModel.onProgressChanged}"
+                            android:onStartTrackingTouch="@{viewModel.onStartTrackingTouch}"
+                            android:onStopTrackingTouch="@{viewModel.onStopTrackingTouch}"
+
+                            tools:progress="30"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textAppearance="?android:attr/textAppearanceSmall"
+                            android:text="0:30"
+                            android:textColor="@android:color/black"/>
+
+                    </LinearLayout>
+                    <RelativeLayout android:layout_width="match_parent" android:layout_height="60dp">
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:layout_width="40dp" android:layout_height="40dp"
+                            android:layout_gravity="center"
+                            android:src="@{ viewModel.playing? @drawable/ic_pause_circle_outline_black :@drawable/ic_play_circle_outline_black }"
+                            android:layout_centerInParent="true"
+                            tools:src="@drawable/ic_play_circle_outline_black"
+                            android:onClick="@{() -> viewModel.clickButton1()}"/>
+                        <ImageView
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:layout_centerVertical="true"
+                            android:layout_alignParentRight="true"
+                            android:src="@drawable/ic_close_black_24dp"
+                            android:onClick="@{()->viewModel.closeMusicPlayerAndView()}"/>
+                        <com.github.ybq.android.spinkit.SpinKitView
+                            xmlns:app="http://schemas.android.com/apk/res-auto"
+                            android:id="@+id/spin_kit"
+                            style="@style/SpinKitView.Circle"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:layout_alignParentLeft="true"
+                            android:layout_centerVertical="true"
+                            android:layout_margin="10dp"
+                            android:visibility="@{viewModel.musicResourceLoading ? View.VISIBLE : View.GONE}"
+                            tools:visibility="visible"
+                            app:SpinKit_Color="@color/colorAccent"/>
+
+                    </RelativeLayout>
 
                 </LinearLayout>
-                <RelativeLayout android:layout_width="match_parent" android:layout_height="60dp">
-                    <androidx.appcompat.widget.AppCompatImageView
-                        android:layout_width="40dp" android:layout_height="40dp"
-                        android:layout_gravity="center"
-                        android:src="@{ viewModel.playing? @drawable/ic_pause_circle_outline_black :@drawable/ic_play_circle_outline_black }"
-                        android:layout_centerInParent="true"
-                        tools:src="@drawable/ic_play_circle_outline_black"
-                        android:onClick="@{() -> viewModel.clickButton1()}"/>
-                    <ImageView
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
-                        android:layout_centerVertical="true"
-                        android:layout_alignParentRight="true"
-                        android:src="@drawable/ic_close_black_24dp"
-                        android:onClick="@{()->viewModel.closeMusicPlayerAndView()}"/>
-                    <com.github.ybq.android.spinkit.SpinKitView
-                        xmlns:app="http://schemas.android.com/apk/res-auto"
-                        android:id="@+id/spin_kit"
-                        style="@style/SpinKitView.Wave"
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
-                        android:layout_alignParentLeft="true"
-                        android:layout_centerVertical="true"
-                        android:layout_margin="10dp"
-                        android:visibility="@{viewModel.musicResourceLoading ? View.VISIBLE : View.GONE}"
-                        tools:visibility="visible"
-                        app:SpinKit_Color="@color/blue_A400"/>
-
-                </RelativeLayout>
-
-            </LinearLayout>
+            </androidx.cardview.widget.CardView>
             <androidx.recyclerview.widget.RecyclerView
                 android:layout_below="@id/sv"
                 android:id="@+id/rv_music"
