@@ -8,14 +8,13 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ericho.itunes_music.R
 import com.ericho.itunes_music.databinding.ActivitySearchBinding
-import com.ericho.itunes_music.factory.MyViewModelFactory
 import com.ericho.itunes_music.model.MusicInfo
 import com.google.gson.Gson
 import com.roger.catloadinglibrary.CatLoadingView
+import org.koin.android.ext.android.inject
 import timber.log.Timber
 
 /**
@@ -23,33 +22,29 @@ import timber.log.Timber
  * for project Itunes_music_demo
  * package name com.ericho.itunes_music.ui.mainpage2
  */
-class SearchAct :AppCompatActivity(),SearchView.OnQueryTextListener {
+class SearchAct : AppCompatActivity(), SearchView.OnQueryTextListener {
 
-    lateinit var viewModel : HomePageViewModel
+    val viewModel: HomePageViewModel by inject()
 
-    lateinit var no_network_layout:RelativeLayout
+    lateinit var no_network_layout: RelativeLayout
     lateinit var sv: SearchView
 
-    val catView:CatLoadingView by lazy { getCatLoadingView() }
+    val catView: CatLoadingView by lazy { getCatLoadingView() }
 
 
     val gson = Gson()
 
-    private lateinit var adapter:MainPage2Adapter
+    private lateinit var adapter: MainPage2Adapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val binding = DataBindingUtil.setContentView<ActivitySearchBinding>(this,R.layout.activity_search)
-        viewModel = obtainViewModel()
+        val binding = DataBindingUtil.setContentView<ActivitySearchBinding>(this, R.layout.activity_search)
+//        viewModel = obtainViewModel()
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
         initView(binding)
 
-
         viewModel.getMusicList("abc")
-
-
-
 
     }
 
@@ -67,7 +62,7 @@ class SearchAct :AppCompatActivity(),SearchView.OnQueryTextListener {
         binding.rvMusic.adapter = adapter
 
         //set listener
-        adapter.setListener(object :MainPage2Adapter.OnMusicSelectListener{
+        adapter.setListener(object : MainPage2Adapter.OnMusicSelectListener {
             override fun onMusicSelect(musicInfo: MusicInfo) {
                 Timber.d(gson.toJson(musicInfo))
                 Timber.d(musicInfo.artistDisplayString)
@@ -76,9 +71,9 @@ class SearchAct :AppCompatActivity(),SearchView.OnQueryTextListener {
         })
 
         viewModel.loading.observe(this, Observer {
-            if(it){
-                catView.show(supportFragmentManager,"")
-            }else{
+            if (it) {
+                catView.show(supportFragmentManager, "")
+            } else {
                 catView.dismiss()
             }
         })
@@ -104,10 +99,7 @@ class SearchAct :AppCompatActivity(),SearchView.OnQueryTextListener {
         return false
     }
 
-    fun obtainViewModel():HomePageViewModel = ViewModelProviders.of(this,MyViewModelFactory.getInstance(application))
-        .get(HomePageViewModel::class.java)
-
-    private fun getCatLoadingView():CatLoadingView{
+    private fun getCatLoadingView(): CatLoadingView {
         return CatLoadingView().apply { isCancelable = false }
     }
 

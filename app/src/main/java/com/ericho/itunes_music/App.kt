@@ -2,6 +2,9 @@ package com.ericho.itunes_music
 
 import android.app.Application
 import com.facebook.stetho.Stetho
+import org.koin.android.ext.koin.androidContext
+import org.koin.android.ext.koin.androidLogger
+import org.koin.core.context.startKoin
 import timber.log.Timber
 
 /**
@@ -14,5 +17,11 @@ class App :Application() {
         super.onCreate()
         Stetho.initializeWithDefaults(this)
         Timber.plant(Timber.DebugTree())
+        // start Koin!
+        startKoin {
+            androidLogger()
+            androidContext(this@App)
+            modules(appModule)
+        }
     }
 }
