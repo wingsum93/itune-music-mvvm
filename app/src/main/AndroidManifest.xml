@@ -31,12 +31,7 @@
         <activity android:name=".ui.SplashAct2">
 
         </activity>
-        <activity
-            android:name=".ui.mainpage.MainActivity"
-            android:screenOrientation="portrait"/>
-        <activity
-            android:name=".ui.playerpage.PlayerActivity"
-            android:screenOrientation="portrait"/>
+
         <activity
             android:name=".ui.mainpage2.SearchAct"
             android:screenOrientation="portrait">

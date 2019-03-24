@@ -23,6 +23,13 @@ fun RecyclerView.bindMusicData(items:ArrayList<MusicInfo>){
 }
 
 @BindingAdapter("app:imageUrl")
-fun ImageView.bindImageUrl(url:String){
+fun ImageView.bindImageUrl(url: String?) {
+    if (url == null) return
+    Glide.with(this.context).load(url).into(this)
+}
+
+@BindingAdapter("app:imageUrl")
+fun ImageView.bindImageUrl(url: Int?) {
+    if (url == null) return
     Glide.with(this.context).load(url).into(this)
 }
