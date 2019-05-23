@@ -36,6 +36,14 @@
             android:name=".ui.mainpage2.SearchAct"
             android:screenOrientation="portrait">
         </activity>
+        <activity
+            android:name=".ui.AdVideoPlayerActivity"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <category android:name="android.intent.category.LAUNCHER"/>
+                <action android:name="android.intent.action.VIEW"/>
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>
