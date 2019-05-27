@@ -14,12 +14,7 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     signingConfigs{
-        release{
-            storeFile file(ERIC_KEYSTORE_FILE)
-            storePassword ERIC_KEYSTORE_PASSWORD
-            keyAlias ERIC_KEY_ALIAS
-            keyPassword ERIC_KEY_PASSWORD
-        }
+        release
     }
     buildTypes {
         release {
@@ -105,4 +100,23 @@ dependencies {
     implementation 'com.jakewharton.timber:timber:4.5.1'
     implementation 'me.wangyuwei:ParticleView:1.0.4'
     kapt "com.android.databinding:compiler:3.3.1"
+}
+def Properties props = new Properties()
+def propFile = new File('signing.properties')
+if (propFile.canRead()){
+    props.load(new FileInputStream(propFile))
+
+    if (props!=null && props.containsKey('STORE_FILE') && props.containsKey('STORE_PASSWORD') &&
+            props.containsKey('KEY_ALIAS') && props.containsKey('KEY_PASSWORD')) {
+        android.signingConfigs.release.storeFile = file(props['STORE_FILE'])
+        android.signingConfigs.release.storePassword = props['STORE_PASSWORD']
+        android.signingConfigs.release.keyAlias = props['KEY_ALIAS']
+        android.signingConfigs.release.keyPassword = props['KEY_PASSWORD']
+    } else {
+        println 'signing.properties found but some entries are missing'
+        android.buildTypes.release.signingConfig = null
+    }
+}else {
+    println 'signing.properties not found'
+    android.buildTypes.release.signingConfig = null
 }
