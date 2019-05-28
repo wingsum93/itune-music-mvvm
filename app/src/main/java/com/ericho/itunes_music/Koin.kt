@@ -1,5 +1,6 @@
 package com.ericho.itunes_music
 
+import com.ericho.itunes_music.data.local.MusicLocal
 import com.ericho.itunes_music.data.remote.MusicRemote
 import com.ericho.itunes_music.data.repository.MusicRepository
 import com.ericho.itunes_music.data.repository.MusicRepositoryImpl
@@ -17,9 +18,10 @@ import org.koin.dsl.module
  */
 
 val appModule = module {
-    single<MusicRepository> { MusicRepositoryImpl(get()) }
+    single<MusicRepository> { MusicRepositoryImpl(get(), get()) }
     viewModel { HomePageViewModel(get(), get()) }
     factory { MusicRemote(get()) }
+    factory { MusicLocal() }
 
     viewModel { WelcomeViewModel(get()) }
     factory<MusicApi> { AppClientManager.getClient().create(MusicApi::class.java) }
