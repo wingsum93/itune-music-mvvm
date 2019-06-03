@@ -7,7 +7,6 @@
         <import type="java.lang.String"/>
         <variable
             name="viewModel" type="com.ericho.itunes_music.ui.mainpage2.HomePageViewModel"/>
-
     </data>
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
