@@ -84,6 +84,7 @@ class MusicPlayer : MediaPlayer(), CoroutineScope {
         dispatchJob?.cancel()
         super.stop()
     }
+
     override fun pause() {
 //        this.job.cancelChildren()
         super.pause()

@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#F44336</color>
-    <color name="colorPrimaryDark">#F44336</color>
-    <color name="colorAccent">#7C4DFF</color>
+	<color name="colorPrimary">#F44336</color>
+	<color name="colorPrimaryDark">#F44336</color>
+	<color name="colorAccent">#7C4DFF</color>
 
-    <color name="iconShadow">#64BEBEBE</color>
-    <color name="white">#FFFFFF</color>
-    <color name="red">#EB2020</color>
-    <color name="blue_A400">#448AFF</color>
-    <color name="grey">#A4C8C8CA</color>
+	<color name="iconShadow">#64BEBEBE</color>
+	<color name="white">#FFFFFF</color>
+	<color name="red">#EB2020</color>
+	<color name="blue_A400">#448AFF</color>
+	<color name="grey">#A4C8C8CA</color>
 </resources>

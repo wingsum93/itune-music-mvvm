@@ -17,8 +17,8 @@ import com.ericho.itunes_music.ui.mainpage2.MainPage2Adapter
 //fun RecyclerView.bindAdapterData(adapter:MainPage2Adapter){
 //    setAdapter(adapter)
 //}
-@BindingAdapter("app:musicData",requireAll = true)
-fun RecyclerView.bindMusicData(items:ArrayList<MusicInfo>){
+@BindingAdapter("app:musicData", requireAll = true)
+fun RecyclerView.bindMusicData(items: ArrayList<MusicInfo>) {
     (adapter as? MainPage2Adapter)?.setData(items)
 }
 

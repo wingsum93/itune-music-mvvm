@@ -10,14 +10,19 @@ import com.ericho.itunes_music.databinding.ItemMusic2Binding
 import com.ericho.itunes_music.model.MusicInfo
 
 
-class MainPage2Adapter( var context: Context): RecyclerView.Adapter<MainPage2Adapter.ViewHolder>() {
+class MainPage2Adapter(var context: Context) : RecyclerView.Adapter<MainPage2Adapter.ViewHolder>() {
 
-    private var listener:OnMusicSelectListener? = null
+    private var listener: OnMusicSelectListener? = null
     private var musicInfos: ArrayList<MusicInfo> = arrayListOf()
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): MainPage2Adapter.ViewHolder {
         val binding =
-        DataBindingUtil.inflate<ItemMusic2Binding>(LayoutInflater.from(context),R.layout.item_music2,viewGroup,false)
+            DataBindingUtil.inflate<ItemMusic2Binding>(
+                LayoutInflater.from(context),
+                R.layout.item_music2,
+                viewGroup,
+                false
+            )
         return ViewHolder(binding)
     }
 
@@ -29,21 +34,24 @@ class MainPage2Adapter( var context: Context): RecyclerView.Adapter<MainPage2Ada
         val info = musicInfos[pos]
 
         holder.bind(info)
-        holder.itemView.setOnClickListener{ view ->
+        holder.itemView.setOnClickListener { view ->
             listener?.onMusicSelect(info)
         }
     }
-    fun setData(musicInfoList:ArrayList<MusicInfo>){
+
+    fun setData(musicInfoList: ArrayList<MusicInfo>) {
         musicInfos.apply {
             clear()
             addAll(musicInfoList)
             notifyDataSetChanged()
         }
     }
-    fun setListener(listener: OnMusicSelectListener){
+
+    fun setListener(listener: OnMusicSelectListener) {
         this.listener = listener
     }
-    class ViewHolder(private val binding: ItemMusic2Binding) : RecyclerView.ViewHolder(binding.root){
+
+    class ViewHolder(private val binding: ItemMusic2Binding) : RecyclerView.ViewHolder(binding.root) {
 
 
         fun bind(item: MusicInfo) {
@@ -53,7 +61,7 @@ class MainPage2Adapter( var context: Context): RecyclerView.Adapter<MainPage2Ada
 
     }
 
-    interface OnMusicSelectListener{
+    interface OnMusicSelectListener {
         fun onMusicSelect(musicInfo: MusicInfo)
     }
 }

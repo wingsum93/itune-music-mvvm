@@ -13,7 +13,7 @@ android {
         versionName "1.1a"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
-    signingConfigs{
+    signingConfigs {
         release
     }
     buildTypes {
@@ -27,7 +27,7 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_7
         targetCompatibility JavaVersion.VERSION_1_7
     }
-    dataBinding{
+    dataBinding {
         enabled = true
     }
 }
@@ -40,7 +40,7 @@ ext {
     rxAndroidVersion = '2.0.1'
     glideVersion = "4.1.1"
     supportLibVersion = "28.0.0"
-    androidXVersion="1.0.0"
+    androidXVersion = "1.0.0"
     koin_version = '2.0.0-beta-4'
 }
 
@@ -94,7 +94,7 @@ dependencies {
     implementation 'me.itangqi.waveloadingview:library:0.3.5'
     implementation 'com.roger.catloadinglibrary:catloadinglibrary:1.0.4'
     implementation 'com.github.ybq:Android-SpinKit:1.2.0'
-    
+
     implementation 'com.github.siyamed:android-shape-imageview:0.9.3@aar'
     implementation 'com.facebook.stetho:stetho:1.5.1'
     implementation 'com.jakewharton.timber:timber:4.5.1'
@@ -103,10 +103,10 @@ dependencies {
 }
 def Properties props = new Properties()
 def propFile = new File('signing.properties')
-if (propFile.canRead()){
+if (propFile.canRead()) {
     props.load(new FileInputStream(propFile))
 
-    if (props!=null && props.containsKey('STORE_FILE') && props.containsKey('STORE_PASSWORD') &&
+    if (props != null && props.containsKey('STORE_FILE') && props.containsKey('STORE_PASSWORD') &&
             props.containsKey('KEY_ALIAS') && props.containsKey('KEY_PASSWORD')) {
         android.signingConfigs.release.storeFile = file(props['STORE_FILE'])
         android.signingConfigs.release.storePassword = props['STORE_PASSWORD']
@@ -116,7 +116,7 @@ if (propFile.canRead()){
         println 'signing.properties found but some entries are missing'
         android.buildTypes.release.signingConfig = null
     }
-}else {
+} else {
     println 'signing.properties not found'
     android.buildTypes.release.signingConfig = null
 }

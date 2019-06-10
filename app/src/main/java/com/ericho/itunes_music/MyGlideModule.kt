@@ -13,7 +13,7 @@ import com.bumptech.glide.module.GlideModule
  * package name com.ericho.itunes_music
  */
 
-class MyGlideModule(): GlideModule {
+class MyGlideModule() : GlideModule {
     override fun applyOptions(context: Context?, builder: GlideBuilder?) {
 
     }

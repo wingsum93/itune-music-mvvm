@@ -14,14 +14,14 @@ class MusicRemote(private val api: MusicApi) : MusicDataSource {
     override fun getMusicList(searchString: String, callBack: MusicDataSource.LoadMusicCallback) {
         // call api
         val call = api.search(searchString)
-        call.enqueue(object: Callback<ApiResult<MusicInfo>>{
+        call.enqueue(object : Callback<ApiResult<MusicInfo>> {
             override fun onFailure(call: Call<ApiResult<MusicInfo>>, t: Throwable) {
-               callBack.onLoadError(t)
+                callBack.onLoadError(t)
             }
 
             override fun onResponse(call: Call<ApiResult<MusicInfo>>, response: Response<ApiResult<MusicInfo>>) {
                 var a = response.body()
-                if(a == null ){
+                if (a == null) {
                     callBack.onLoadError(Throwable())
                     return
                 }
