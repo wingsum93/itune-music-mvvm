@@ -2,6 +2,7 @@ package com.ericho.itunes_music
 
 import android.app.Application
 import com.facebook.stetho.Stetho
+import com.google.android.gms.ads.MobileAds
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
@@ -23,5 +24,6 @@ class App : Application() {
             androidContext(this@App)
             modules(appModule)
         }
+        MobileAds.initialize(this)
     }
 }
