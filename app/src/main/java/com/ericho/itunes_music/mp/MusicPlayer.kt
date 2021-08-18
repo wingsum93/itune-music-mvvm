@@ -1,5 +1,6 @@
 package com.ericho.itunes_music.mp
 
+import android.annotation.SuppressLint
 import android.media.AudioManager
 import android.media.MediaPlayer
 import kotlinx.coroutines.*
@@ -56,6 +57,7 @@ class MusicPlayer : MediaPlayer(), CoroutineScope {
         this.callback = callback
     }
 
+    @SuppressLint("TimberArgCount")
     private fun initializeUpdate() {
         dispatchJob = launch(Dispatchers.IO) {
             while (true) {
