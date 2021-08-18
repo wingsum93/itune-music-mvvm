@@ -14,7 +14,7 @@ class FibonacciTest {
     }
 
     fun nextFibonacci(input: IntArray) {
-        val max = input.max()!!
+        val max = input.maxOrNull() ?: 0
         val fibonacciList = buildSequence(max).toList()
 
         println("Output:")
