@@ -17,9 +17,6 @@
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
             android:value="@string/ADMOB_APP_ID" />
-		<meta-data
-			android:name="com.ericho.itunes_music.MyGlideModule"
-			android:value="GlideModule"/>
 		<activity
 			android:name=".ui.SplashActivity"
 			android:theme="@style/Theme.AppCompat.Light.NoActionBar"
