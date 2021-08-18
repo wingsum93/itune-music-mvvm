@@ -1,5 +1,5 @@
 # The name of our workflow
-name: Build
+name: Run Lint & Test
 # Trigger on every pull request
 on:
   pull_request:
