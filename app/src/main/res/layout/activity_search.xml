@@ -78,11 +78,11 @@
 							android:layout_weight="0.8"
 							android:max="30"
 							android:progress="@{viewModel.seekbarProgress}"
-							android:onProgressChanged="@{viewModel.onProgressChanged}"
-							android:onStartTrackingTouch="@{viewModel.onStartTrackingTouch}"
-							android:onStopTrackingTouch="@{viewModel.onStopTrackingTouch}"
+							android:onProgressChanged="@{viewModel::onProgressChanged}"
+							android:onStartTrackingTouch="@{viewModel::onStartTrackingTouch}"
+							android:onStopTrackingTouch="@{viewModel::onStopTrackingTouch}"
 
-							tools:progress="30"/>
+							tools:progress="30" />
 
 						<TextView
 							android:layout_width="wrap_content"
