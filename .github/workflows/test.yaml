@@ -23,5 +23,5 @@ jobs:
             ${{ runner.os }}-gradle-
       - name: Run lint check
         run: ./gradlew lintDebug
-      - name: Run lint check
+      - name: Run test
         run: ./gradlew test
