@@ -14,5 +14,11 @@ jobs:
     steps:
       - name: Checkout the code
         uses: actions/checkout@v2
-      - name: Build the app
-        run: ./gradlew build
+      - uses: actions/cache@v1
+      with:
+        path: ~/.gradle/caches/modules-2
+        key: ${{ runner.os }}-gradlemodules-${{ hashFiles('checksum.txt') }}
+        restore-keys: |
+          ${{ runner.os }}-gradlemodules-
+        - name: Build the app
+          run: ./gradlew build
