@@ -1,87 +1,87 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="#FBB919"
-    android:padding="16dp">
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:orientation="vertical"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:background="#FBB919"
+	android:padding="16dp">
 
-    <ImageView
-        android:id="@+id/img_bg"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_gravity="center_horizontal"
-        android:layout_weight="0.5"
-        android:src="@drawable/ic_album_black"
-        android:scaleType="fitCenter"/>
-
-
-    <TextView
-        android:id="@+id/txtSound"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textColor="@android:color/white"
-        android:textAlignment="center"/>
-
-    <TextView
-        android:id="@+id/txtArtist"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:textColor="@android:color/white"/>
-
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:text="0:00"
-            android:id="@+id/txtSeekBarHint"
-            android:textColor="@android:color/white"/>
-
-        <androidx.appcompat.widget.AppCompatSeekBar
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:id="@+id/sb"
-            android:layout_weight="0.8"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:text="0:30"
-            android:textColor="@android:color/white"/>
+	<ImageView
+		android:id="@+id/img_bg"
+		android:layout_width="match_parent"
+		android:layout_height="0dp"
+		android:layout_gravity="center_horizontal"
+		android:layout_weight="0.5"
+		android:src="@drawable/ic_album_black"
+		android:scaleType="fitCenter"/>
 
 
-    </LinearLayout>
+	<TextView
+		android:id="@+id/txtSound"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_gravity="center_horizontal"
+		android:textAppearance="?android:attr/textAppearanceMedium"
+		android:textColor="@android:color/white"
+		android:textAlignment="center"/>
 
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_gravity="center_horizontal"
-        android:gravity="center_horizontal"
-        android:layout_weight="0.2">
+	<TextView
+		android:id="@+id/txtArtist"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_gravity="center_horizontal"
+		android:textAppearance="?android:attr/textAppearanceSmall"
+		android:textColor="@android:color/white"/>
 
-        <androidx.appcompat.widget.AppCompatImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="16dp"
-            android:id="@+id/imgbtn_playPause"
-            android:layout_gravity="center_vertical"
-            android:src="@drawable/ic_play_circle_outline_black"
-            android:tint="@color/colorAccent"
-            android:background="@null"
-            android:enabled="false"/>
+	<LinearLayout
+		android:orientation="horizontal"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_gravity="center_horizontal">
 
-    </LinearLayout>
+		<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:textAppearance="?android:attr/textAppearanceSmall"
+			android:text="0:00"
+			android:id="@+id/txtSeekBarHint"
+			android:textColor="@android:color/white"/>
+
+		<androidx.appcompat.widget.AppCompatSeekBar
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:id="@+id/sb"
+			android:layout_weight="0.8"/>
+
+		<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:textAppearance="?android:attr/textAppearanceSmall"
+			android:text="0:30"
+			android:textColor="@android:color/white"/>
+
+
+	</LinearLayout>
+
+	<LinearLayout
+		android:orientation="horizontal"
+		android:layout_width="match_parent"
+		android:layout_height="0dp"
+		android:layout_gravity="center_horizontal"
+		android:gravity="center_horizontal"
+		android:layout_weight="0.2">
+
+		<androidx.appcompat.widget.AppCompatImageButton
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:padding="16dp"
+			android:id="@+id/imgbtn_playPause"
+			android:layout_gravity="center_vertical"
+			android:src="@drawable/ic_play_circle_outline_black"
+			android:tint="@color/colorAccent"
+			android:background="@null"
+			android:enabled="false"/>
+
+	</LinearLayout>
 </LinearLayout>

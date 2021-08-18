@@ -5,10 +5,10 @@ import retrofit2.converter.gson.GsonConverterFactory
 import okhttp3.OkHttpClient
 
 
-
 class AppClientManager {
     private var okHttpClient: OkHttpClient
     private var retrofit: Retrofit
+
     init {
         okHttpClient = OkHttpClient()
         retrofit = Retrofit.Builder()

@@ -9,7 +9,7 @@ import com.ericho.itunes_music.R
  * for project itune-music-mvvm
  * package name com.ericho.itunes_music.ui
  */
-class SplashAct2 :AppCompatActivity() {
+class SplashAct2 : AppCompatActivity() {
 
 
     override fun onCreate(savedInstanceState: Bundle?) {

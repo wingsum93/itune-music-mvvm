@@ -59,6 +59,7 @@ class HomePageViewModel(
         playing.set(false)
         showErrorMessage.set(false)
     }
+
     fun getMusicList(searchData: String) {
 
         loading.postValue(true)
@@ -171,6 +172,7 @@ class HomePageViewModel(
     fun onDestroy() {
         closeMusicPlayerAndView()
     }
+
     override fun onCleared() {
         pageScope.coroutineContext.cancelChildren()
         musicPlayer.release()

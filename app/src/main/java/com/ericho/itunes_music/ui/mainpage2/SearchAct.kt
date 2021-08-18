@@ -89,7 +89,7 @@ class SearchAct : AppCompatActivity(), SearchView.OnQueryTextListener {
             viewModel!!.getMusicList(it)
 
             val im = getSystemService(InputMethodManager::class.java)
-            im.hideSoftInputFromWindow(this.currentFocus.windowToken, 0)
+            im.hideSoftInputFromWindow(this.currentFocus?.windowToken, 0)
             sv.clearFocus()
         }
         return true

@@ -17,12 +17,19 @@ import com.ericho.itunes_music.ui.mainpage2.MainPage2Adapter
 //fun RecyclerView.bindAdapterData(adapter:MainPage2Adapter){
 //    setAdapter(adapter)
 //}
-@BindingAdapter("app:musicData",requireAll = true)
-fun RecyclerView.bindMusicData(items:ArrayList<MusicInfo>){
+@BindingAdapter("app:musicData", requireAll = true)
+fun RecyclerView.bindMusicData(items: ArrayList<MusicInfo>) {
     (adapter as? MainPage2Adapter)?.setData(items)
 }
 
 @BindingAdapter("app:imageUrl")
-fun ImageView.bindImageUrl(url:String){
+fun ImageView.bindImageUrl(url: String?) {
+    if (url == null) return
+    Glide.with(this.context).load(url).into(this)
+}
+
+@BindingAdapter("app:imageUrl")
+fun ImageView.bindImageUrl(url: Int?) {
+    if (url == null) return
     Glide.with(this.context).load(url).into(this)
 }
