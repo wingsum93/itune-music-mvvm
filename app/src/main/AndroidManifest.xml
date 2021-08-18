@@ -17,17 +17,14 @@
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
             android:value="@string/ADMOB_APP_ID" />
-		<meta-data
-			android:name="com.ericho.itunes_music.MyGlideModule"
-			android:value="GlideModule"/>
 		<activity
 			android:name=".ui.SplashActivity"
 			android:theme="@style/Theme.AppCompat.Light.NoActionBar"
-			android:screenOrientation="portrait">
+			android:screenOrientation="fullSensor">
 			<intent-filter>
-				<action android:name="android.intent.action.MAIN"/>
-				<category android:name="android.intent.category.LAUNCHER"/>
-				<action android:name="android.intent.action.VIEW"/>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.LAUNCHER" />
+				<action android:name="android.intent.action.VIEW" />
 			</intent-filter>
 		</activity>
 		<activity android:name=".ui.SplashAct2">
@@ -36,8 +33,7 @@
 
 		<activity
 			android:name=".ui.mainpage2.SearchAct"
-			android:screenOrientation="portrait">
-		</activity>
+			android:screenOrientation="fullSensor"></activity>
 	</application>
 
 </manifest>
