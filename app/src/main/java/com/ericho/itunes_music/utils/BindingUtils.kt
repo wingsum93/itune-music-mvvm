@@ -3,7 +3,7 @@ package com.ericho.itunes_music.utils
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
+import coil.load
 import com.ericho.itunes_music.model.MusicInfo
 import com.ericho.itunes_music.ui.mainpage2.MainPage2Adapter
 
@@ -25,11 +25,15 @@ fun RecyclerView.bindMusicData(items: ArrayList<MusicInfo>) {
 @BindingAdapter("app:imageUrl")
 fun ImageView.bindImageUrl(url: String?) {
     if (url == null) return
-    Glide.with(this.context).load(url).into(this)
+    this.load(url) {
+        crossfade(true)
+    }
 }
 
 @BindingAdapter("app:imageUrl")
 fun ImageView.bindImageUrl(url: Int?) {
     if (url == null) return
-    Glide.with(this.context).load(url).into(this)
+    this.load(url) {
+        crossfade(true)
+    }
 }
