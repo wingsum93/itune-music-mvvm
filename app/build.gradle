@@ -16,12 +16,7 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     signingConfigs{
-        release{
-            storeFile file(ERIC_KEYSTORE_FILE)
-            storePassword ERIC_KEYSTORE_PASSWORD
-            keyAlias ERIC_KEY_ALIAS
-            keyPassword ERIC_KEY_PASSWORD
-        }
+        release
     }
     buildTypes {
         release {
