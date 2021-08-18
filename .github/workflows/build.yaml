@@ -14,11 +14,13 @@ jobs:
     steps:
       - name: Checkout the code
         uses: actions/checkout@v2
-      - uses: actions/cache@v1
+      - uses: actions/cache@v2
         with:
-          path: ~/.gradle/caches/modules-2
-          key: ${{ runner.os }}-gradlemodules
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
           restore-keys: |
-            ${{ runner.os }}-gradlemodules-
+            ${{ runner.os }}-gradle-
       - name: Build the app
         run: ./gradlew build
