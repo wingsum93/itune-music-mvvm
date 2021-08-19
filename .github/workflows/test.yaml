@@ -25,3 +25,8 @@ jobs:
         run: ./gradlew lintDebug
       - name: Run test
         run: ./gradlew test
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v1
+        with:
+          name: report
+          path: app/build/reports
