@@ -5,7 +5,7 @@ on:
   push:
   workflow_dispatch:
 jobs:
-  Check-Gradle-KDependency:
+  Compile-Class:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout the code
